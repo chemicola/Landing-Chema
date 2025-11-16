@@ -1,0 +1,539 @@
+/* ==================================
+   RESET Y CONFIGURACIÓN GENERAL
+   ================================== */
+
+/* Desplazamiento suave para los enlaces ancla */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables de color */
+:root {
+    --color-fondo: #0a0a0a;
+    --color-texto: #F5F5F5;
+    --color-dorado: #e6bd38;
+    --color-crema: #c0a359;
+    --color-negro: #0e0e0e;
+}
+
+/* Estilos del body */
+body {
+    font-family: 'Tiktok Sans', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Contenedor general */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ==================================
+   ESTILOS DEL HEADER
+   ================================== */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-negro);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Clase para ocultar el navbar */
+header.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Logo */
+.logo a {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--color-dorado);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+/* Navegación */
+.nav {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-link {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--color-dorado);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-dorado);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Botón hamburguesa (oculto en desktop) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-dorado);
+    transition: all 0.3s ease;
+}
+
+/* Animación del hamburguesa cuando está activo */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ==================================
+   ESTILOS DE LA SECCIÓN HERO
+   ================================== */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 0 60px;
+    background: linear-gradient(135deg, var(--color-fondo) 0%, #1d1d1d 100%);
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 52px;
+    font-weight: bold;
+    color: var(--color-dorado);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    color: var(--color-texto);
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* Botón CTA Principal */
+.cta-principal {
+    display: inline-block;
+    padding: 16px 40px;
+    background-color: var(--color-crema);
+    color: var(--color-negro);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: 0.2s ease;
+    border: 2px solid var(--color-crema);
+}
+
+.cta-principal:hover {
+    background-color: transparent;
+    color: var(--color-crema);
+    box-shadow: 0 10px 30px rgba(243, 234, 211, 0.2);
+    border: 2px solid var(--color-crema)
+}
+
+/* ==================================
+   ESTILOS DE LA SECCIÓN DOLOR
+   ================================== */
+
+.dolor {
+    padding: 100px 0;
+    background-color: var(--color-negro);
+}
+
+.dolor h2 {
+    font-size: 36px;
+    text-align: center;
+    color: var(--color-texto);
+    margin-bottom: 60px;
+}
+
+.dolor-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.dolor-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+    background-color: rgba(26, 26, 26, 0.5);
+    border-left: 3px solid var(--color-dorado);
+    transition: all 0.3s ease;
+}
+
+.dolor-item:hover {
+    background-color: rgba(26, 26, 26, 0.8);
+    transform: translateX(10px);
+}
+
+.dolor-numero {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--color-dorado);
+    min-width: 40px;
+}
+
+.dolor-item p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ==================================
+   ESTILOS DE LA SECCIÓN SERVICIOS
+   ================================== */
+
+.servicios {
+    padding: 100px 0;
+    background: var(--color-fondo);
+}
+
+.servicios h2 {
+    font-size: 36px;
+    text-align: center;
+    color: var(--color-dorado);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.servicio-card {
+    background-color: var(--color-negro);
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.servicio-card:hover {
+    border-color: var(--color-dorado);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+}
+
+.servicio-card h3 {
+    font-size: 28px;
+    color: var(--color-dorado);
+    margin-bottom: 20px;
+}
+
+.servicio-card p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: var(--color-texto);
+    opacity: 0.9;
+}
+
+/* Botón CTA Secundario */
+.cta-secundario {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: transparent;
+    color: var(--color-dorado);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid var(--color-dorado);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.cta-secundario:hover {
+    background-color: var(--color-dorado);
+    color: var(--color-negro);
+    transform: translateY(-2px);
+}
+
+/* ==================================
+   ESTILOS DE LA SECCIÓN CONTACTO
+   ================================== */
+
+.contacto {
+    padding: 100px 0;
+    background-color: var(--color-negro);
+}
+
+.contacto-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contacto h3 {
+    font-size: 36px;
+    color: var(--color-dorado);
+    margin-bottom: 15px;
+}
+
+.contacto-subtitle {
+    font-size: 18px;
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+/* Formulario */
+.contacto-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: var(--color-dorado);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--color-fondo);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 5px;
+    color: var(--color-texto);
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-dorado);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.contacto-form button {
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* ==================================
+   ESTILOS DEL FOOTER
+   ================================== */
+
+footer {
+    background-color: var(--color-fondo);
+    padding: 40px 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-copyright p {
+    font-size: 14px;
+    color: var(--color-texto);
+    opacity: 0.7;
+}
+
+.footer-logo span {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--color-dorado);
+}
+
+.footer-links {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.footer-links a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-dorado);
+}
+
+.footer-links span {
+    color: var(--color-texto);
+    opacity: 0.5;
+}
+
+/* ==================================
+   MEDIA QUERIES - RESPONSIVE
+   ================================== */
+
+/* Tablets y pantallas medianas (768px - 1024px) */
+@media (min-width: 768px) {
+    .dolor-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .servicios-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Pantallas grandes (1024px+) */
+@media (min-width: 1024px) {
+    .hero h1 {
+        font-size: 66px;
+    }
+    
+    .hero-subtitle {
+        font-size: 24px;
+    }
+}
+
+/* Móviles (hasta 768px) */
+@media (max-width: 767px) {
+    /* Header móvil */
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: rgba(17, 17, 17, 0.98);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        transition: left 0.3s ease;
+    }
+    
+    .nav.active {
+        left: 0;
+    }
+    
+    .nav-link {
+        font-size: 24px;
+    }
+    
+    /* Hero móvil */
+    .hero h1 {
+        font-size: 32px;
+    }
+    
+    .hero-subtitle {
+        font-size: 16px;
+    }
+    
+    /* Secciones móviles */
+    .dolor h2,
+    .servicios h2,
+    .contacto h3 {
+        font-size: 28px;
+    }
+    
+    .dolor-item {
+        flex-direction: column;
+        padding: 20px;
+    }
+    
+    .servicio-card {
+        padding: 30px 20px;
+    }
+    
+    /* Footer móvil */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
