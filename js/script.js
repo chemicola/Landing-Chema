@@ -58,34 +58,67 @@ window.addEventListener('scroll', () => {
     lastScrollY = currentScrollY;
 });
 
-// ==================================
-// PREVENCIÓN DEL ENVÍO DEL FORMULARIO
-// (Solo para demostración - en producción conectarías con un backend)
-// ==================================
-
-// Seleccionamos el formulario de contacto
+// 1. Seleccionamos los elementos
 const contactForm = document.getElementById('contacto-form');
+const contactFeedback = document.getElementById('contact-feedback');
 
-// Añadimos un evento de envío al formulario
-contactForm.addEventListener('submit', (e) => {
- // Prevenimos el comportamiento por defecto (recargar la página)
-e.preventDefault();
- 
-// NOTA: Se ha quitado el alert() para evitar que bloquee la página.
-    // En un proyecto real, aquí iría la lógica para enviar los datos 
-    // a un servicio como Netlify Forms, Formspree, o un backend propio.
-console.log('Formulario enviado (simulación).');
+// 2. Añadimos el evento 'submit'
+if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+        // A. Evitamos que la página se recargue
+        event.preventDefault();
 
-// Reseteamos el formulario (limpiamos los campos)
-contactForm.reset();
+        // B. Preparamos los datos
+        const formData = new FormData(contactForm);
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        
+        // C. Feedback visual: "Enviando..."
+        if(submitButton) {
+            submitButton.textContent = "Enviando...";
+            submitButton.disabled = true;
+        }
+        if(contactFeedback) {
+            contactFeedback.textContent = "";
+            contactFeedback.className = ""; // Limpiar colores previos
+        }
 
-    // Opcional: Mostrar un mensaje de éxito no-intrusivo
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    submitButton.innerText = '¡Enviado con éxito!';
-    submitButton.disabled = true;
-
-    setTimeout(() => {
-        submitButton.innerText = 'Enviar Mensaje';
-        submitButton.disabled = false;
-    }, 3000);
-});
+        // D. Petición real a Formspree
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Éxito: Mensaje verde y limpiar form
+                contactFeedback.textContent = "¡Mensaje enviado con éxito!";
+                contactFeedback.style.color = "#4ade80"; // Verde
+                contactForm.reset();
+            } else {
+                // Error: Mensaje rojo
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        contactFeedback.textContent = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        contactFeedback.textContent = "Hubo un error al enviar el mensaje.";
+                    }
+                    contactFeedback.style.color = "#ef4444"; // Rojo
+                });
+            }
+        })
+        .catch(error => {
+            // Error de red
+            contactFeedback.textContent = "Error de conexión. Inténtalo de nuevo.";
+            contactFeedback.style.color = "#ef4444";
+        })
+        .finally(() => {
+            // Restaurar el botón
+            if(submitButton) {
+                submitButton.textContent = "Enviar Mensaje";
+                submitButton.disabled = false;
+            }
+        });
+    });
+}
